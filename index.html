@@ -14,104 +14,104 @@
     <link rel="stylesheet" type="text/css" href="./css/custom.css">
 <!--    <script src="jquery-3.4.1.min.js"></script>-->
     <script>
-       var ip="";
+       	var ip="";
 		
-var country="";
-// Create the XHR object.
-function createCORSRequest(method, url) {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
-    // XHR for Chrome/Firefox/Opera/Safari.
-    xhr.open(method, url, true);
-  } else if (typeof XDomainRequest != "undefined") {
-    // XDomainRequest for IE.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-  } else {
-    // CORS not supported.
-    xhr = null;
-  }
-  return xhr;
-}
+	var country="";
+	// Create the XHR object.
+	function createCORSRequest(method, url) {
+  		var xhr = new XMLHttpRequest();
+  		if ("withCredentials" in xhr) {
+    			// XHR for Chrome/Firefox/Opera/Safari.
+    			xhr.open(method, url, true);
+  		} else if (typeof XDomainRequest != "undefined") {
+    			// XDomainRequest for IE.
+    			xhr = new XDomainRequest();
+    			xhr.open(method, url);
+  		} else {
+    			// CORS not supported.
+    			xhr = null;
+  		}
+  		return xhr;
+	}
 
-// Helper method to parse the title tag from the response.
-function getTitle(text) {
-  return text.match('<title>(.*)?</title>')[1];
-}
+	// Helper method to parse the title tag from the response.
+	function getTitle(text) {
+  		return text.match('<title>(.*)?</title>')[1];
+	}
 
-// Make the actual CORS request.
-function makeCorsRequest(url) {
-  // This is a sample server that supports CORS.
-//  var url = 'http://html5rocks-cors.s3-website-us-east-1.amazonaws.com/index.html';
+	// Make the actual CORS request.
+	function makeCorsRequest(url) {
+  	// This is a sample server that supports CORS.
+	//  var url = 'http://html5rocks-cors.s3-website-us-east-1.amazonaws.com/index.html';
 
-  var xhr = createCORSRequest('GET', url);
-  if (!xhr) {
-//    alert('CORS not supported');
-    return;
-  }
+  		var xhr = createCORSRequest('GET', url);
+  		if (!xhr) {
+			//    alert('CORS not supported');
+    			return;
+  		}
 
-  // Response handlers.
-  xhr.onload = function() {
-    var text = xhr.responseText;
-    var ipobj =JSON.parse(text);
-   ip = ipobj.ip;
- country=ipobj.country_name; 
+  		// Response handlers.
+  		xhr.onload = function() {
+    			var text = xhr.responseText;
+    			var ipobj =JSON.parse(text);
+   			ip = ipobj.ip;
+ 			country=ipobj.country_name; 
  
-if (ip != "" && ip != null&&country!=""&&country!=null) {
-      setCookie("ipcookie", ip, 365);
-  setCookie("countrycookie",country,365); 
- }
+			if (ip != "" && ip != null&&country!=""&&country!=null) {
+      				setCookie("ipcookie", ip, 365);
+  				setCookie("countrycookie",country,365); 
+ 			}
 
-//alert('Response from CORS request to ' + ip + ': ' +country );
-  };
+			//alert('Response from CORS request to ' + ip + ': ' +country );
+  		};
 
-  xhr.onerror = function() {
- //   alert('Woops, there was an error making the request.');
-  };
+  		xhr.onerror = function() {
+ 			//   alert('Woops, there was an error making the request.');
+  		};
 
-  xhr.send();
-}
-
-
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  var expires = "expires="+d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-function checkCookie() {
-   ip = getCookie("ipcookie");
+  		xhr.send();
+	}
 
 
-	country= getCookie("countrycookie");  
-if (ip != ""&&country!="") {
+	function setCookie(cname, cvalue, exdays) {
+  		var d = new Date();
+  		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  		var expires = "expires="+d.toUTCString();
+  		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
 
-  //  alert("get ip and country： " + ip+","+country);
-  } else {
-    //ip = prompt("Please enter your name:", "");
-getIP();    
+	function getCookie(cname) {
+  		var name = cname + "=";
+  		var ca = document.cookie.split(';');
+  		for(var i = 0; i < ca.length; i++) {
+    			var c = ca[i];
+    			while (c.charAt(0) == ' ') {
+      				c = c.substring(1);
+    			}
+    			if (c.indexOf(name) == 0) {
+      				return c.substring(name.length, c.length);
+    			}
+  		}
+  		return "";
+	}
 
-//if (ip != "" && ip != null) {
- //     setCookie("ipcookie", ip, 365);
-  //  }
-  }
-}
+	function checkCookie() {
+   		ip = getCookie("ipcookie");
+
+
+		country= getCookie("countrycookie");  
+		if (ip != ""&&country!="") {
+
+  		//  alert("get ip and country： " + ip+","+country);
+  		} else {
+    			//ip = prompt("Please enter your name:", "");
+			getIP();    
+
+		//if (ip != "" && ip != null) {
+ 		//     setCookie("ipcookie", ip, 365);
+  		//  }
+  		}
+	}
 
 
 
@@ -120,8 +120,8 @@ getIP();
 
 
 	function getIP(){
-//		window.alert("get ip");
-var theUrl="https://api.ipapi.com/api/check?access_key=1c916d929672467db6decd4976f217c2&format=1";	
+		//		window.alert("get ip");
+		var theUrl="https://api.ipapi.com/api/check?access_key=1c916d929672467db6decd4976f217c2&format=1";	
 
 		makeCorsRequest(theUrl);
 
@@ -131,68 +131,68 @@ var theUrl="https://api.ipapi.com/api/check?access_key=1c916d929672467db6decd497
         
         function vote1() {
 
-alert("感謝你的投票!");	  
- setInterval(getCandidate	,3000);
-            if(country=="Taiwan"){
+		alert("感謝你的投票!");	  
+ 		setInterval(getCandidate	,3000);
+            	if(country=="Taiwan"){
 
-		voteid=uuidv4(); 
-            var theUrl="/mindiao/vote.php?vote=1&userGUID="+ip+"&voteid="+voteid;
+			voteid=uuidv4(); 
+            		var theUrl="/mindiao/vote.php?vote=1&userGUID="+ip+"&voteid="+voteid;
 		
-          httpGetAsync(theUrl,callback); 
-             } 
+          		httpGetAsync(theUrl,callback); 
+             	} 
         }
 
 
 	function vote2() {
-alert("感謝你的投票!");          
- setInterval(getCandidate     ,3000);
-            if(country=="Taiwan"){
+		alert("感謝你的投票!");          
+ 		setInterval(getCandidate     ,3000);
+            	if(country=="Taiwan"){
 
-                voteid=uuidv4();
-            var theUrl="/mindiao/vote.php?vote=2&userGUID="+ip+"&voteid="+voteid;
+                	voteid=uuidv4();
+            		var theUrl="/mindiao/vote.php?vote=2&userGUID="+ip+"&voteid="+voteid;
 
-          httpGetAsync(theUrl,callback);
+          		httpGetAsync(theUrl,callback);
+             	}
+        }
+
+
+	function vote3() {
+		alert("感謝你的投票!");       
+    		setInterval(getCandidate     ,3000);
+            	if(country=="Taiwan"){
+
+                	voteid=uuidv4();
+
+            		var theUrl="/mindiao/vote.php?vote=3&userGUID="+ip+"&voteid="+voteid;
+
+          		httpGetAsync(theUrl,callback);
              }
         }
 
 
-function vote3() {
-alert("感謝你的投票!");       
-    setInterval(getCandidate     ,3000);
-            if(country=="Taiwan"){
+	function vote4() {
+		alert("感謝你的投票!"); 
+          	setInterval(getCandidate     ,3000);
+            	if(country=="Taiwan"){
 
-                voteid=uuidv4();
+                	voteid=uuidv4();
+            		var theUrl="/mindiao/vote.php?vote=4&userGUID="+ip+"&voteid="+voteid;
 
-            var theUrl="/mindiao/vote.php?vote=3&userGUID="+ip+"&voteid="+voteid;
-
-          httpGetAsync(theUrl,callback);
-             }
+          		httpGetAsync(theUrl,callback);
+             	}
         }
 
 
-function vote4() {
-alert("感謝你的投票!"); 
-          setInterval(getCandidate     ,3000);
-            if(country=="Taiwan"){
+	function vote5() {
+ 		alert("感謝你的投票!");
+          	setInterval(getCandidate     ,3000);
+            	if(country=="Taiwan"){
 
-                voteid=uuidv4();
-            var theUrl="/mindiao/vote.php?vote=4&userGUID="+ip+"&voteid="+voteid;
+                	voteid=uuidv4();
+            		var theUrl="/mindiao/vote.php?vote=5&userGUID="+ip+"&voteid="+voteid;
 
-          httpGetAsync(theUrl,callback);
-             }
-        }
-
-
-function vote5() {
- alert("感謝你的投票!");
-          setInterval(getCandidate     ,3000);
-            if(country=="Taiwan"){
-
-                voteid=uuidv4();
-            var theUrl="/mindiao/vote.php?vote=5&userGUID="+ip+"&voteid="+voteid;
-
-          httpGetAsync(theUrl,callback);
-             }
+          		httpGetAsync(theUrl,callback);
+             	}
         }	
 
 
@@ -200,13 +200,15 @@ function vote5() {
 
 
 	function getCandidate(){
-//alert("感謝你的投票!");
+		//alert("感謝你的投票!");
 
-//		window.alert("updateUI");
+		//		window.alert("updateUI");
 
 		var theUrl="/mindiao/candidate.php";
 		httpGetAsync(theUrl,updateUI);
 	}
+	    
+	    
 	function updateUI(data){
 		jsonarray=JSON.parse(data);
 		
@@ -271,7 +273,7 @@ function vote5() {
 		var totalView=document.getElementById("total");
 
 		var total=parseInt(count1)+parseInt(count2)+parseInt(count3)+parseInt(count4)+parseInt(count5);	
-	totalView.innerText="有效票數 "+total;
+		totalView.innerText="有效票數 "+total;
 	}
 
         function callback(data){
@@ -279,12 +281,12 @@ function vote5() {
              // window.alert(data);
         }
 
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-} 
+	function uuidv4() {
+  		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    			return v.toString(16);
+  		});
+	} 
  
 
 
